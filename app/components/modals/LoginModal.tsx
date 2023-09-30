@@ -37,32 +37,27 @@ const LoginModal = () => {
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setIsLoading(true);
 
-    signIn('credentials', {
+    signIn("credentials", {
       ...data,
       redirect: false,
-    })
-    .then((callback)=> {
+    }).then((callback) => {
       setIsLoading(false);
 
-      if(callback?.ok){
+      if (callback?.ok) {
         toast.success("Logged in successfully");
         router.refresh();
         loginModal.onClose();
       }
 
-      if(callback?.error){
+      if (callback?.error) {
         toast.error(callback.error);
       }
-    })
+    });
   };
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
-      <Heading
-        title="Welcome back"
-        subtitle="Login to your account"
-        center
-      />
+      <Heading title="Welcome back" subtitle="Login to your account" center />
       <Input
         id="email"
         label="Email"
@@ -90,18 +85,23 @@ const LoginModal = () => {
         outline
         label="Continue with Google"
         icon={FcGoogle}
-        onClick={() => {}}
+        onClick={() => signIn("google")}
       />
       <Button
         outline
         label="Continue with Github"
         icon={AiFillGithub}
-        onClick={() => {}}
+        onClick={() => signIn("github")}
       />
       <div className="text-neutral text-center mt-4 font-light">
         <div className="justify-center flex flex-row items-center gap-2">
           <div>Don&apos;t have an account?</div>
-          <div onClick={RegisterModal.onClose} className="text-neutral-800 cursor-pointer hover:underline">Sign up</div>
+          <div
+            onClick={RegisterModal.onClose}
+            className="text-neutral-800 cursor-pointer hover:underline"
+          >
+            Sign up
+          </div>
         </div>
       </div>
     </div>
