@@ -19,8 +19,10 @@ import { useRouter } from "next/navigation";
 
 const LoginModal = () => {
   const router = useRouter();
+
   const loginModal = useLoginModal();
   const RegisterModal = useRegisterModal();
+
   const [isLoading, setIsLoading] = useState(false);
 
   const {
@@ -54,6 +56,11 @@ const LoginModal = () => {
       }
     });
   };
+
+  const toggle = useCallback(() => {
+    loginModal.onClose();
+    RegisterModal.onOpen();
+  }, [loginModal, RegisterModal]);
 
   const bodyContent = (
     <div className="flex flex-col gap-4">
@@ -97,7 +104,7 @@ const LoginModal = () => {
         <div className="justify-center flex flex-row items-center gap-2">
           <div>Don&apos;t have an account?</div>
           <div
-            onClick={RegisterModal.onClose}
+            onClick={toggle}
             className="text-neutral-800 cursor-pointer hover:underline"
           >
             Sign up
