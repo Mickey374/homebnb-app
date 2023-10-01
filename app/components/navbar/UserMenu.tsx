@@ -7,6 +7,8 @@ import MenuItem from "./MenuItem";
 
 import useRegisterModal from "@/app/hooks/useRegisterModal";
 import useLoginModal from "@/app/hooks/useLoginModal";
+import useRentModal from "@/app/hooks/useRentModal";
+
 import { signOut } from "next-auth/react";
 import { SafeUser } from "@/app/types";
 
@@ -17,6 +19,7 @@ interface UserMenuProps {
 const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
   const registerModal = useRegisterModal();
   const loginModal = useLoginModal();
+  const rentModal = useRentModal();
 
   //Hook for opening menu
   const [isOpen, setIsOpen] = useState(false);
@@ -33,7 +36,8 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
     }
 
     // Open Rent modal
-  }, [currentUser, loginModal]);
+    rentModal.onOpen();
+  }, [currentUser, loginModal, rentModal]);
 
   return (
     <div className="relative">
@@ -64,7 +68,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                 <MenuItem onClick={() => {}} label="My Favorites" />
                 <MenuItem onClick={() => {}} label="My Reservations" />
                 <MenuItem onClick={() => {}} label="My Properties" />
-                <MenuItem onClick={() => {}} label="Homebnb My Home" />
+                <MenuItem onClick={rentModal.onOpen} label="Homebnb My Home" />
                 <hr />
                 <MenuItem onClick={() => signOut()} label="Logout" />
               </>
