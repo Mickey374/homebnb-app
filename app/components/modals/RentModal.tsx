@@ -6,6 +6,7 @@ import { useMemo, useState } from "react";
 import Heading from "../Heading";
 import { categories } from "@/app/assets/categoriesData";
 import CategoryInput from "../inputs/CategoryInput";
+import { FieldValues, useForm } from "react-hook-form";
 
 //Define enum for listing steps
 enum STEPS {
@@ -21,6 +22,38 @@ const RentModal = () => {
   const rentModal = useRentModal();
 
   const [step, setStep] = useState(STEPS.CATEGORY);
+
+  // Initialize the form modal
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+    watch,
+    reset,
+  } = useForm<FieldValues>({
+    defaultValues: {
+      category: "",
+      location: null,
+      guestCount: 1,
+      roomCount: 1,
+      bathroomCount: 1,
+      imageSrc: "",
+      price: 1,
+      title: "",
+      description: "",
+    },
+  });
+
+  const category = watch("category");
+
+  const setCustomValue = (id: string, value: any) => {
+    setValue(id, value, {
+      shouldValidate: true,
+      shouldDirty: true,
+      shouldTouch: true,
+    });
+  };
 
   const onBack = () => {
     setStep((value) => value - 1);
@@ -48,7 +81,7 @@ const RentModal = () => {
 
   const bodyContent = (
     <div className="flex flex-col gap-8">
-      <Heading 
+      <Heading
         title="Which one best describes your place?"
         subtitle="Pick a category"
       />
@@ -56,25 +89,24 @@ const RentModal = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto">
         {categories.map((item) => (
           <div key={item.label} className="col-span-1">
-            <CategoryInput 
-            onClick = {()=> {}}
-            label={item.label}
-            icon={item.icon}
-            selected = {false}
-            
+            <CategoryInput
+              onClick={(category) => setCustomValue("category", category)}
+              label={item.label}
+              icon={item.icon}
+              selected={category === item.label}
             />
           </div>
         ))}
       </div>
     </div>
-  )
+  );
 
   return (
     <Modal
       title="Homebnb your home"
       actionLabel={actionLabel}
       secondaryActionLabel={secondaryActionLabel}
-      secondaryAction={step === STEPS.CATEGORY? undefined : onBack}
+      secondaryAction={step === STEPS.CATEGORY ? undefined : onBack}
       body={bodyContent}
       isOpen={rentModal.isOpen}
       onClose={rentModal.onClose}
