@@ -24,13 +24,22 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
   //Function to close the menu
   const toggleOpen = useCallback(() => {
     setIsOpen((value) => !value);
-  }, [setIsOpen]);
+  }, []);
+
+  //Function to handle Homebnb your home button on index page
+  const onRent = useCallback(() => {
+    if (!currentUser) {
+      return loginModal.onOpen();
+    }
+
+    // Open Rent modal
+  }, [currentUser, loginModal]);
 
   return (
     <div className="relative">
       <div className="flex flex-rows items-center gap-3">
         <div
-          onClick={() => {}}
+          onClick={onRent}
           className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 transition cursor-pointer"
         >
           Homebnb your home.
