@@ -1,30 +1,9 @@
 "use client";
 
 import Container from "../Container";
-import {TbBeach} from 'react-icons/tb';
-import {GiWindmill} from 'react-icons/gi';
-import {MdOutlineVilla} from 'react-icons/md';
 import CategoryBox from "../CategoryBox";
 import { usePathname, useSearchParams } from "next/navigation";
-
-
-export const categories = [
-    {
-        label: "Beach",
-        icon: TbBeach,
-        description: "This property is closer to the beach"
-    },
-    {
-        label: "Windmills",
-        icon: GiWindmill,
-        description: "This property has a windmill"
-    },
-    {
-        label: "Modern",
-        icon: MdOutlineVilla,
-        description: "This property is in a modern style"
-    }
-]
+import { categories } from "@/app/assets/categoriesData";
 
 const Categories = () => {
     const params = useSearchParams();
