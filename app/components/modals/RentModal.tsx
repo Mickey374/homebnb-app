@@ -11,6 +11,7 @@ import CountrySelect from "../inputs/CountrySelect";
 import dynamic from "next/dynamic";
 import Counter from "../inputs/Counter";
 import ImageUpload from "../inputs/ImageUpload";
+import Input from "../inputs/Input";
 
 //Define enum for listing steps
 enum STEPS {
@@ -26,6 +27,7 @@ const RentModal = () => {
   const rentModal = useRentModal();
 
   const [step, setStep] = useState(STEPS.CATEGORY);
+  const [isLoading, setIsLoading] = useState(false);
 
   // Initialize the form modal
   const {
@@ -174,9 +176,38 @@ const RentModal = () => {
           title="Upload images for your place"
           subtitle="Add images to help guests find you"
         />
-        <ImageUpload 
+        <ImageUpload
           value={imageSrc}
           onChange={(value) => setCustomValue("imageSrc", value)}
+        />
+      </div>
+    );
+  }
+
+  if (step === STEPS.DESCRIPTION) {
+    bodyContent = (
+      <div className="flex flex-col gap-8">
+        <Heading
+          title="How can you describe your place?"
+          subtitle="Short & Sweet words work better"
+        />
+
+        <Input
+          id="title"
+          label="Title"
+          disabled={isLoading}
+          register={register}
+          errors={errors}
+          required
+        />
+        <hr />
+        <Input
+          id="description"
+          label="Description"
+          disabled={isLoading}
+          register={register}
+          errors={errors}
+          required
         />
       </div>
     );
