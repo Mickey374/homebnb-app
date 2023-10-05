@@ -87,13 +87,15 @@ const ListingClient: React.FC<ListingClientProps> = ({
   }, [totalPrice, dateRange, listing?.id, currentUser, loginModal, router]);
 
   useEffect(() => {
-    if(dateRange.startDate && dateRange.endDate) {
-      const dayCount = differenceInCalendarDays(dateRange.endDate, dateRange.startDate);
+    if (dateRange.startDate && dateRange.endDate) {
+      const dayCount = differenceInCalendarDays(
+        dateRange.endDate,
+        dateRange.startDate
+      );
 
-      if(dayCount && listing?.price) {
+      if (dayCount && listing?.price) {
         setTotalPrice(listing.price * dayCount);
-      }
-      else {
+      } else {
         setTotalPrice(listing.price);
       }
     }
@@ -125,14 +127,14 @@ const ListingClient: React.FC<ListingClientProps> = ({
               locationValue={listing.locationValue}
             />
             <div className="order-first mb-10 md:order-last md:order-last md:col-span-3">
-              <ListingReservation 
-                price = {listing.price}
-                totalPrice = {totalPrice}
-                onChangeDate = {(value) => setDateRange(value)}
-                dateRange = {dateRange}
-                onSubmit = {onCreateReservation}
-                disabled = {isLoading}
-                disabledDates = {disabledDate}
+              <ListingReservation
+                price={listing.price}
+                totalPrice={totalPrice}
+                onChangeDate={(value) => setDateRange(value)}
+                dateRange={dateRange}
+                onSubmit={onCreateReservation}
+                disabled={isLoading}
+                disabledDates={disabledDate}
               />
             </div>
           </div>
