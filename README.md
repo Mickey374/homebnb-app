@@ -1,6 +1,6 @@
 # HomeBnB Fullstack Web Application
 
-!![Alt text](image.png)
+!(image.png)
 
 A description of your application. Briefly explain its purpose and key features.
 
