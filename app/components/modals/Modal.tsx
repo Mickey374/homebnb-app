@@ -20,13 +20,13 @@ const Modal: React.FC<ModalProps> = ({
   isOpen,
   onClose,
   onSubmit,
-  title,
+  title = "",
   body,
   footer,
-  actionLabel,
+  actionLabel = "",
   disabled,
   secondaryAction,
-  secondaryActionLabel,
+  secondaryActionLabel = "",
 }) => {
   const [showModal, setShowModal] = useState(isOpen);
 
